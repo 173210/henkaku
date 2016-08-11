@@ -1,3 +1,17 @@
+.vs
+HENkaku/HENkaku/Server/Handler/Resource/pkg
+HENkaku/HENkaku/Server/Handler/Resource/exploit.html
+HENkaku/HENkaku/Server/Handler/Resource/stage1.bin
+HENkaku/HENkaku/Server/Handler/Resource/stage2.bin
+HENkaku/HENkaku.Droid/bin
+HENkaku/HENkaku.Droid/obj
+HENkaku/HENkaku.Droid/Resources/drawable
+HENkaku/HENkaku.Droid/Resources/drawable-hdpi
+HENkaku/HENkaku.Droid/Resources/drawable-xhdpi
+HENkaku/HENkaku.Droid/Resources/drawable-xxhdpi
+HENkaku/HENkaku.iOS/bin
+HENkaku/HENkaku.iOS/obj
 host/stage1.bin
 host/stage2.bin
 host/payload.js
+packages
