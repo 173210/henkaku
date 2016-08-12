@@ -1,5 +1,5 @@
-﻿using System.Net;
-using System.Threading.Tasks;
+﻿using System;
+using System.Net;
 
 namespace HENkaku.Server
 {
@@ -7,31 +7,32 @@ namespace HENkaku.Server
     {
         private readonly HttpListener listener;
         private readonly IRoute route;
-        private readonly Task task;
 
         public Listener (IRoute initialRoute, string port)
         {
             listener = new HttpListener();
             listener.Prefixes.Add("http://*:" + port + "/");
             route = initialRoute;
-            task = new Task (Listen);
         }
 
-        private void Listen ()
+        private void WaitRequestAsync ()
         {
-            listener.Start ();
-            
-            while (true) {
-                var context = listener.GetContext ();
-                var handler = route.GetHandler (context.Request.Url.AbsolutePath);
-                
-                handler.Serve (context);
-            }
+            listener.BeginGetContext (new AsyncCallback (Response), this);
+        }
+
+        private static void Response (IAsyncResult result)
+        {
+            var listener = (Listener) result.AsyncState;
+            var context = listener.listener.EndGetContext (result);
+            var handler = listener.route.GetHandler (context.Request.Url.AbsolutePath);
+            handler.Serve (context);
+            listener.WaitRequestAsync ();
         }
 
         public void Start ()
         {
-            task.Start ();
+            listener.Start ();
+            WaitRequestAsync ();
         }
     }
 }
