@@ -52,16 +52,15 @@ namespace HENkaku.Server.Handler
             args[1] += csize;
             
             var memory = new MemoryStream ((int)(dsize + csize));
-            var binary = new BinaryWriter (memory);
 
-            Relocate (binary, args, (int)cstart, (int)(cstart + csize));
-            Relocate (binary, args, (int)dstart, (int)cstart);
+            var writer = new BinaryWriter (memory);
+            Relocate (writer, args, (int)cstart, (int)(cstart + csize));
+            Relocate (writer, args, (int)dstart, (int)cstart);
+            memory.Seek (0, SeekOrigin.Begin);
             
-            var bytes = memory.ToArray (); 
-
-            context.Response.ContentLength64 = bytes.Length;
+            context.Response.ContentLength64 = memory.Length;
             context.Response.ContentType = "application/octet-stream";
-            context.Response.OutputStream.Write (bytes, 0, bytes.Length);
+            memory.CopyTo (context.Response.OutputStream);
             context.Response.Close ();
         }
     }
