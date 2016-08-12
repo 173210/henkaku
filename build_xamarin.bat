@@ -1,4 +1,4 @@
-xcopy /s host\pkg HENkaku\HENkaku\Server\Handler\Resource\pkg
+xcopy /si host\pkg HENkaku\HENkaku\Server\Handler\Resource\pkg
 copy host\exploit.html HENkaku\HENkaku\Server\Handler\Resource\exploit.html
 python3 preprocess.py loader.rop.bin HENkaku\HENkaku\Server\Handler\Resource\stage1.bin
 python3 preprocess.py exploit.rop.bin HENkaku\HENkaku\Server\Handler\Resource\stage2.bin
