@@ -4,7 +4,7 @@ using System.IO;
 
 namespace HENkaku.Server.Handler
 {
-    class Files : Handler
+    class Files : IHandler
     {
         private readonly Dictionary<string, string> Types;
 

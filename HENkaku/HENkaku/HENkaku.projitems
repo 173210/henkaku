@@ -10,7 +10,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="$(MSBuildThisFileDirectory)App.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Handler.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\IHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Files.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Payload.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\Resource.cs" />

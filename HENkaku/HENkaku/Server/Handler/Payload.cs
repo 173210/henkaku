@@ -1,6 +1,6 @@
 ﻿namespace HENkaku.Server.Handler
 {
-    abstract class Payload : Handler
+    abstract class Payload : IHandler
     {
         private readonly int uriIndex;
         private const int uriMax = 256;

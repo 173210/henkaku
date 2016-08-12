@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using HENkaku.Server.Handler;
 
 namespace HENkaku.Server
 {
@@ -12,11 +13,11 @@ namespace HENkaku.Server
             const string stage2_path = "/x";
             const string pkg_path = "/pkg";
 
-            var files = new Handler.Files ();
-            var stage1 = new Handler.Stage1 (root + stage2_path);
-            var stage2 = new Handler.Stage2 (root + pkg_path);
+            var files = new Files ();
+            var stage1 = new Stage1 (root + stage2_path);
+            var stage2 = new Stage2 (root + pkg_path);
 
-            var handlers = new Dictionary<string, Handler.Handler> () {
+            var handlers = new Dictionary<string, IHandler> () {
                 {  stage1_path, stage1 },
                 {  stage2_path, stage2 }
             };
