@@ -1,25 +1,19 @@
-﻿using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Threading.Tasks;
-using HENkaku.Server.Handler;
 
 namespace HENkaku.Server
 {
     class Listener
     {
         private readonly HttpListener listener;
-        private readonly IHandler defaultHandler;
-        private readonly IReadOnlyDictionary<string, IHandler> handlers;
+        private readonly IRoute route;
         private readonly Task task;
 
-        public Listener (IHandler initialDefaultHandler,
-            IReadOnlyDictionary<string, IHandler> initialHandlers,
-            string port)
+        public Listener (IRoute initialRoute, string port)
         {
             listener = new HttpListener();
             listener.Prefixes.Add("http://*:" + port + "/");
-            defaultHandler = initialDefaultHandler;
-            handlers = initialHandlers;
+            route = initialRoute;
             task = new Task (Listen);
         }
 
@@ -29,10 +23,7 @@ namespace HENkaku.Server
             
             while (true) {
                 var context = listener.GetContext ();
-                
-                IHandler handler;
-                if (!handlers.TryGetValue (context.Request.Url.AbsolutePath, out handler))
-                    handler = defaultHandler;
+                var handler = route.GetHandler (context.Request.Url.AbsolutePath);
                 
                 handler.Serve (context);
             }
