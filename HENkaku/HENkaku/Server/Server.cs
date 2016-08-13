@@ -10,9 +10,9 @@
             listener = new Listener (route, port);
         }
 
-        public void Start ()
+        public void Start (Log.ILog log)
         {
-            listener.Start ();
+            listener.Start (log);
         }
     }
 }

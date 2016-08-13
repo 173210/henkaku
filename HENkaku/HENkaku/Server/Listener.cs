@@ -15,24 +15,37 @@ namespace HENkaku.Server
             route = initialRoute;
         }
 
-        private void WaitRequestAsync ()
+        private void WaitRequestAsync (Log.ILog log)
         {
-            listener.BeginGetContext (new AsyncCallback (Response), this);
+            log.WriteLine ("Waiting for a new request");
+            listener.BeginGetContext (new AsyncCallback (Response), log);
         }
 
-        private static void Response (IAsyncResult result)
+        private void Response (IAsyncResult result)
         {
-            var listener = (Listener) result.AsyncState;
-            var context = listener.listener.EndGetContext (result);
-            var handler = listener.route.GetHandler (context.Request.Url.AbsolutePath);
-            handler.Serve (context);
-            listener.WaitRequestAsync ();
+            var log = (Log.ILog) result.AsyncState;
+
+            try {
+                var context = listener.EndGetContext (result);
+                log.WriteLine ("Serving " + context.Request.RawUrl);
+                var handler = route.GetHandler (context.Request.Url.AbsolutePath);
+                handler.Serve (context);
+            } catch (Exception exception) {
+                log.WriteExceptionWarning (exception);
+            }
+
+            try {
+                WaitRequestAsync (log);
+            } catch (Exception exception) {
+                log.WriteExceptionError (exception);
+                log.WriteLine ("Stopped. Please restart application.");
+            }
         }
 
-        public void Start ()
+        public void Start (Log.ILog log)
         {
             listener.Start ();
-            WaitRequestAsync ();
+            WaitRequestAsync (log);
         }
     }
 }
