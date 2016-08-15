@@ -20,7 +20,7 @@ namespace HENkaku.Server.Handler
             };
         }
 
-        public override void Serve (System.Net.HttpListenerContext context)
+        public void Serve (System.Net.HttpListenerContext context)
         {
             var request = context.Request;
             var response = context.Response;

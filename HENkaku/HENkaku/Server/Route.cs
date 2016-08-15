@@ -25,7 +25,7 @@ namespace HENkaku.Server
             };
         }
 
-        public override IHandler GetHandler (string path)
+        public IHandler GetHandler (string path)
         {
             IHandler handler;
 

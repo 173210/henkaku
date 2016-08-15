@@ -46,5 +46,7 @@
 
             payload[uriIndex + cursor] = 0;
         }
+
+        public abstract void Serve (System.Net.HttpListenerContext context);
     }
 }

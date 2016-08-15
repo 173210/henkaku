@@ -2,8 +2,8 @@
 
 namespace HENkaku.Server
 {
-    abstract class IRoute
+    interface IRoute
     {
-        public abstract IHandler GetHandler (string path);
+        IHandler GetHandler (string path);
     }
 }

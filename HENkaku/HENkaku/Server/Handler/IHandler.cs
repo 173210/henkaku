@@ -1,7 +1,7 @@
 ﻿namespace HENkaku.Server.Handler
 {
-    abstract class IHandler
+    interface IHandler
     {
-        public abstract void Serve (System.Net.HttpListenerContext response);
+        void Serve (System.Net.HttpListenerContext response);
     }
 }
