@@ -1,14 +1,13 @@
 ﻿<Properties StartupItem="HENkaku\HENkaku.Droid\HENkaku.Droid.csproj">
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release" />
   <MonoDevelop.Ide.ItemProperties.HENkaku.Droid PreferredExecutionTarget="Android.TA9911U888" />
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
     <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
-  <MonoDevelop.Ide.Workbench ActiveDocument="HENkaku\HENkaku\DynamicScrollView.cs">
+  <MonoDevelop.Ide.Workbench>
     <Files>
-      <File FileName="HENkaku\HENkaku\DynamicScrollView.cs" Line="26" Column="1" />
-      <File FileName="HENkaku\HENkaku\MainPage.xaml" Line="1" Column="5" />
+      <File FileName="HENkaku\HENkaku\MainPage.xaml" Line="13" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
 </Properties>

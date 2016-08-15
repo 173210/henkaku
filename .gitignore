@@ -1,14 +1,12 @@
 .vs
-HENkaku/HENkaku/Server/Handler/Resource/pkg
-HENkaku/HENkaku/Server/Handler/Resource/exploit.html
-HENkaku/HENkaku/Server/Handler/Resource/stage1.bin
-HENkaku/HENkaku/Server/Handler/Resource/stage2.bin
 HENkaku/HENkaku.Droid/bin
 HENkaku/HENkaku.Droid/obj
 HENkaku/HENkaku.Droid/Resources/drawable/icon.png
 HENkaku/HENkaku.Droid/Resources/drawable-hdpi/icon.png
 HENkaku/HENkaku.Droid/Resources/drawable-xhdpi/icon.png
 HENkaku/HENkaku.Droid/Resources/drawable-xxhdpi/icon.png
+HENkaku/HENkaku.Resource/bin
+HENkaku/HENkaku.Resource/obj
 HENkaku/HENkaku.iOS/bin
 HENkaku/HENkaku.iOS/obj
 host/stage1.bin

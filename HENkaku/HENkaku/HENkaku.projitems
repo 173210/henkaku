@@ -21,7 +21,6 @@
     <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\IHandler.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Files.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Payload.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\Resource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Stage1.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Handler\Stage2.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Route.cs" />
@@ -29,11 +28,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Server\Listener.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Server\Server.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\exploit.html" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\stage1.bin" />
-    <EmbeddedResource Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\stage2.bin" />
-  </ItemGroup>
+  <!--
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\pkg\eboot.bin" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\pkg\sce_sys\package\head.bin" />
@@ -46,6 +41,7 @@
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\pkg\sce_sys\livearea\contents\startup.png" />
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)Server\Handler\Resource\pkg\sce_sys\livearea\contents\template.xml" />
   </ItemGroup>
+-->
   <ItemGroup>
     <EmbeddedResource Include="$(MSBuildThisFileDirectory)MainPage.xaml">
       <SubType>Designer</SubType>

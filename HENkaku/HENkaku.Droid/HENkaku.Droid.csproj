@@ -122,6 +122,12 @@
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\HENkaku.Resource\HENkaku.Resource.csproj">
+      <Project>{67f9d3a8-f71e-4428-913f-c37ae82cdb24}</Project>
+      <Name>HENkaku.Resource</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="..\HENkaku\HENkaku.projitems" Label="Shared" Condition="Exists('..\HENkaku\HENkaku.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets" Condition="Exists('..\..\packages\Xamarin.Android.Support.Vector.Drawable.23.3.0\build\Xamarin.Android.Support.Vector.Drawable.targets')" />
@@ -131,5 +137,54 @@
     </PropertyGroup>
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.akihikodaki.1.0.0\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.akihikodaki.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.akihikodaki.1.0.0\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.akihikodaki.targets'))" />
   </Target>
+  <Target Name="BeforeBuild">
+    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\drawable\icon.png" Width="48" />
+    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\drawable-hdpi\icon.png" Width="72" />
+    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\drawable-xhdpi\icon.png" Width="96" />
+    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\drawable-xxhdpi\icon.png" Width="144" />
+  </Target>
+  <Target Name="AfterClean">
+    <Delete Files="Resources\drawable\icon.png;Resources\drawable-hdpi\icon.png;Resources\drawable-xhdpi\icon.png;Resources\drawable-xxhdpi\icon.png" />
+  </Target>
+  <UsingTask TaskName="Resize" TaskFactory="CodeTaskFactory" AssemblyFile="$(MSBuildToolsPath)\Microsoft.Build.Tasks.v4.0.dll">
+    <ParameterGroup>
+      <Source ParameterType="System.String" Required="true">
+      </Source>
+      <Destination ParameterType="System.String" Required="true">
+      </Destination>
+      <Width ParameterType="System.Int32" Required="true">
+      </Width>
+    </ParameterGroup>
+    <Task>
+      <Using Namespace="System" />
+      <Using Namespace="System.Drawing" />
+      <Using Namespace="System.Reflection" />
+      <Code Type="Fragment" Language="cs"><![CDATA[
+          var drawing = Assembly.Load ("System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a");
+
+          var imageFormat = drawing.GetType ("System.Drawing.Imaging.ImageFormat");
+          var imageFormatPng = imageFormat.GetProperty ("Png");
+
+          var bitmap = drawing.GetType ("System.Drawing.Bitmap");
+          var bitmapSave = bitmap.GetMethod ("Save", new Type[] { typeof (string), imageFormat });
+
+          var source = Activator.CreateInstance (bitmap, new object[] { Source });
+          var destination = Activator.CreateInstance (bitmap, new object[] { Width, Width });
+
+          var graphics = drawing.GetType ("System.Drawing.Graphics");
+          var graphicsFromImage = graphics.GetMethod ("FromImage");
+          var graphicsDrawImage = graphics.GetMethod ("DrawImage", new Type[] {
+              bitmap,
+              typeof (System.Int32), typeof (System.Int32),
+              typeof (System.Int32), typeof (System.Int32)
+            });
+
+          var graphicsInstance = graphicsFromImage.Invoke (null, new object[] { destination });
+          graphicsDrawImage.Invoke (graphicsInstance, new object[] { source, 0, 0, Width, Width });
+
+          bitmapSave.Invoke (destination, new object[] { Destination, imageFormatPng.GetValue (null) });
+        ]]></Code>
+    </Task>
+  </UsingTask>
   <Import Project="..\..\packages\Xamarin.Forms.akihikodaki.1.0.0\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.akihikodaki.targets" Condition="Exists('..\..\packages\Xamarin.Forms.akihikodaki.1.0.0\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.akihikodaki.targets')" />
 </Project>
