@@ -117,7 +117,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
+    <AndroidResource Include="Resources\mipmap\icon.png" />
+    <AndroidResource Include="Resources\mipmap-hdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xhdpi\icon.png" />
+    <AndroidResource Include="Resources\mipmap-xxhdpi\icon.png" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Properties\AndroidManifest.xml" />
@@ -138,10 +141,10 @@
     <Error Condition="!Exists('..\..\packages\Xamarin.Forms.akihikodaki.1.0.0\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.akihikodaki.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\..\packages\Xamarin.Forms.akihikodaki.1.0.0\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.akihikodaki.targets'))" />
   </Target>
   <Target Name="BeforeBuild">
-    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\drawable\icon.png" Width="48" />
-    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\drawable-hdpi\icon.png" Width="72" />
-    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\drawable-xhdpi\icon.png" Width="96" />
-    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\drawable-xxhdpi\icon.png" Width="144" />
+    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\mipmap\icon.png" Width="48" />
+    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\mipmap-hdpi\icon.png" Width="72" />
+    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\mipmap-xhdpi\icon.png" Width="96" />
+    <Resize Source="..\..\host\pkg\sce_sys\icon0.png" Destination="Resources\mipmap-xxhdpi\icon.png" Width="144" />
   </Target>
   <Target Name="AfterClean">
     <Delete Files="Resources\drawable\icon.png;Resources\drawable-hdpi\icon.png;Resources\drawable-xhdpi\icon.png;Resources\drawable-xxhdpi\icon.png" />

@@ -1,10 +1,10 @@
 .vs
 HENkaku/HENkaku.Droid/bin
 HENkaku/HENkaku.Droid/obj
-HENkaku/HENkaku.Droid/Resources/drawable/icon.png
-HENkaku/HENkaku.Droid/Resources/drawable-hdpi/icon.png
-HENkaku/HENkaku.Droid/Resources/drawable-xhdpi/icon.png
-HENkaku/HENkaku.Droid/Resources/drawable-xxhdpi/icon.png
+HENkaku/HENkaku.Droid/Resources/mipmap/icon.png
+HENkaku/HENkaku.Droid/Resources/mipmap-hdpi/icon.png
+HENkaku/HENkaku.Droid/Resources/mipmap-xhdpi/icon.png
+HENkaku/HENkaku.Droid/Resources/mipmap-xxhdpi/icon.png
 HENkaku/HENkaku.Resource/bin
 HENkaku/HENkaku.Resource/obj
 HENkaku/HENkaku.iOS/bin
