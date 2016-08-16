@@ -5,6 +5,7 @@
              x:Class="HENkaku.MainPage">
   <StackLayout>
     <Label Text="{Binding Uri}" />
+    <Switch IsToggled="{Binding ServerSwitch}" />
     <Button Text="Clear logs" Command="{Binding LogClear}" />
     <AutoScrollView:AutoScrollView VerticalOptions="FillAndExpand" x:Name="LogView">
       <Label FormattedText="{Binding Log}" VerticalOptions="FillAndExpand" x:Name="LogLabel" />

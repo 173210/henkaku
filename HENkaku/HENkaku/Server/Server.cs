@@ -5,47 +5,64 @@ namespace HENkaku.Server
 {
     class Server
     {
-        private readonly HttpListener listener;
+        private HttpListener listener = null;
+        private readonly string prefix;
         private readonly IRoute route;
+        private readonly Log.ILog log;
 
-        public Server (string root, string port)
+        public Server (string root, string port, Log.ILog initialLog)
         {
-            listener = new HttpListener();
-            listener.Prefixes.Add("http://*:" + port + "/");
+            prefix = "http://*:" + port + "/";
             route = new Route (root);
+            log = initialLog;
         }
 
-        private void WaitRequestAsync (Log.ILog log)
+        private void WaitRequestAsync ()
         {
             log.WriteLine ("Waiting for a new request");
-            listener.BeginGetContext (new AsyncCallback (Response), log);
+            listener.BeginGetContext (new AsyncCallback (Response), this);
         }
 
-        private void Response (IAsyncResult result)
+        private static void Response (IAsyncResult result)
         {
-            var log = (Log.ILog) result.AsyncState;
+            var server = (Server) result.AsyncState;
 
             try {
-                var context = listener.EndGetContext (result);
-                log.WriteLine ("Serving " + context.Request.RawUrl);
-                var handler = route.GetHandler (context.Request.Url.AbsolutePath);
+                var context = server.listener.EndGetContext (result);
+                server.log.WriteLine ("Serving " + context.Request.RawUrl);
+                var handler = server.route.GetHandler (context.Request.Url.AbsolutePath);
                 handler.Serve (context);
             } catch (Exception exception) {
-                log.WriteExceptionWarning (exception);
+                server.log.WriteExceptionWarning (exception);
             }
 
             try {
-                WaitRequestAsync (log);
+                server.WaitRequestAsync ();
             } catch (Exception exception) {
-                log.WriteExceptionError (exception);
-                log.WriteLine ("Stopped. Please restart application.");
+                server.log.WriteExceptionError (exception);
+                server.Stop ();
             }
         }
 
-        public void Start (Log.ILog log)
+        public void Start ()
         {
+            log.WriteLine ("Starting");
+            listener = new HttpListener();
+            listener.Prefixes.Add(prefix);
             listener.Start ();
-            WaitRequestAsync (log);
+            WaitRequestAsync ();
+        }
+
+        public void Stop ()
+        {
+            listener.Close ();
+            listener = null;
+            log.WriteLine ("Stopped");
+        }
+
+        public bool IsRunning ()
+        {
+            return listener != null;
         }
     }
 }

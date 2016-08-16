@@ -5,28 +5,30 @@ namespace HENkaku
 {
     class MainModel
     {
-        private readonly Log.Backend log;
+        private readonly Log.Backend logBackend;
+        private readonly Log.Frontend logFrontend;
+        private readonly Server.Server server;
         private readonly string uri;
 
         public MainModel ()
         {
-            log = new Log.Backend ();
-            log.WriteLine ("Starting");
+            logBackend = new Log.Backend ();
+            logBackend.WriteLine ("Initializing");
 
             try {
-				LogClear = new Command (log.Clear);
+				LogClear = new Command (logBackend.Clear);
 
                 const string port = "8080";
 
                 var hostName = Dns.GetHostName ();
                 var hostAddress = Dns.GetHostAddresses (hostName);
                 uri = "http://" + hostAddress[0].ToString () + ":" + port;
+                logFrontend = new Log.Frontend (logBackend);
             
-                var server = new Server.Server (uri, port);
-                var frontend = new Log.Frontend (log);
-                server.Start (frontend);
+                server = new Server.Server (uri, port, logFrontend);
+                server.Start ();
             } catch (System.Exception exception) {
-                log.WriteExceptionError (exception);
+                logBackend.WriteExceptionError (exception);
             }
         }
 
@@ -36,11 +38,30 @@ namespace HENkaku
 			protected set;
         }
 
+        public bool ServerSwitch
+        {
+            get
+            {
+                // return server.IsRunning ();
+                return true;
+            }
+            set
+            {
+                if (value) {
+                    if (!server.IsRunning ())
+                        server.Start ();
+                } else {
+                    if (server.IsRunning ())
+                        server.Stop ();
+                }
+            }
+        }
+
         public FormattedString Log
         {
             get
             {
-                return log.Get ();
+                return logBackend.Get ();
             }
         }
 
